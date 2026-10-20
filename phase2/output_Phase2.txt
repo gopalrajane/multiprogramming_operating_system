@@ -1,0 +1,70 @@
+HELLO PAGING WORLD                      
+
+JOB ID : 0101
+STATUS : NO ERROR
+IC     : 03
+IR     : H
+TTC    : 04
+LLC    : 01
+
+WORD                                    
+
+JOB ID : 0102
+STATUS : NO ERROR
+IC     : 05
+IR     : H
+TTC    : 07
+LLC    : 01
+
+JOB ID : 0103
+STATUS : OUT OF DATA
+IC     : 01
+IR     : GD20
+TTC    : 02
+LLC    : 00
+
+ONE LINE ONLY                           
+
+JOB ID : 0104
+STATUS : LINE LIMIT EXCEEDED
+IC     : 03
+IR     : PD20
+TTC    : 04
+LLC    : 01
+
+JOB ID : 0105
+STATUS : TIME LIMIT EXCEEDED
+IC     : 01
+IR     : BT01
+TTC    : 11
+LLC    : 00
+
+JOB ID : 0106
+STATUS : OPCODE ERROR
+IC     : 01
+IR     : XX20
+TTC    : 01
+LLC    : 00
+
+JOB ID : 0107
+STATUS : OPERAND ERROR
+IC     : 01
+IR     : GD2A
+TTC    : 02
+LLC    : 00
+
+JOB ID : 0108
+STATUS : INVALID PAGE FAULT
+IC     : 01
+IR     : LR50
+TTC    : 01
+LLC    : 00
+
+JOB ID : 0109
+STATUS : TIME LIMIT EXCEEDED
+         OPCODE ERROR
+IC     : 02
+IR     : XX00
+TTC    : 02
+LLC    : 00
+
