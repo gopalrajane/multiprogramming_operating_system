@@ -1,208 +1,84 @@
-# Multiprogramming Operating System (MOS) – Phase 1
+# Multiprogramming Operating System
 
-A C-based simulation of a **Multiprogramming Operating System (MOS)** implementing basic CPU, memory, instruction execution, and supervisor call operations.
+A C-based simulation of operating system concepts, developed in two phases. The project demonstrates instruction execution, memory management, job processing, interrupts, and input/output services.
 
-## 📌 Project Overview
+## Phases
 
-This project simulates the first phase of a multiprogramming operating system. It contains a simulated CPU, memory, registers, loader, and MOS services.
+### Phase 1 — Basic MOS
 
-The system reads jobs from an input file, loads them into memory, executes the instructions, performs input/output operations, and stores the output in a file.
+Implements a simple simulated machine with:
 
-## ⚙️ Features
+- 100-word memory and 4-character words
+- Instruction register, instruction counter, general-purpose register, and condition flag
+- Loader and instruction execution
+- `LR`, `SR`, `CR`, `BT`, `GD`, `PD`, and `H` instructions
+- Supervisor services for reading, writing, and job termination
 
-* Simulated memory of **100 words**
-* Each memory word contains **4 characters**
-* CPU registers:
+### Phase 2 — Paging and Job Control
 
-  * **IR** – Instruction Register
-  * **IC** – Instruction Counter
-  * **R** – General Purpose Register
-  * **C** – Comparison Toggle
-* Instruction execution:
+Extends the simulation with:
 
-  * `LR` – Load Register
-  * `SR` – Store Register
-  * `CR` – Compare Register
-  * `BT` – Branch on Toggle
-  * `GD` – Get Data
-  * `PD` – Put Data
-  * `H` – Halt
-* Supervisor calls:
+- 300-word real memory divided into frames
+- Virtual memory and page-table address translation
+- Dynamic frame allocation and page-fault handling
+- Process Control Block (PCB) for job information
+- Supervisor, timer, and program interrupts
+- Time and line limits, instruction validation, and job reports
 
-  * `SI = 1` → READ
-  * `SI = 2` → WRITE
-  * `SI = 3` → TERMINATE
-* Job control cards:
-
-  * `$AMJ` – Start Job
-  * `$DTA` – Start Data Section
-  * `$END` – End Job
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
-MOS-Phase1/
-│
-├── main.c
-├── input_Phase1.txt
-├── output.txt
-├── run.bat
+multiprogramming_operating_system/
+├── phase1/
+│   ├── main.c
+│   ├── input.txt
+│   └── output.txt
+├── phase2/
+│   ├── main.c
+│   ├── input_Phase2.txt
+│   └── output_Phase2.txt
 └── README.md
 ```
 
-## 🖥️ Requirements
+## Requirements
 
-You need:
+- C compiler (GCC recommended)
+- Windows, Linux, or macOS terminal
 
-* Windows 10/11
-* VS Code (recommended)
-* GCC compiler / MinGW
-* Git (optional, for GitHub)
+## Build and Run
 
-## 🚀 How to Run
+Run each phase from its own directory.
 
-### Step 1 – Open the Project
-
-Download or clone this repository and open the project folder in VS Code.
-
-### Step 2 – Open Terminal
-
-In VS Code:
-
-```text
-Terminal → New Terminal
-```
-
-### Step 3 – Compile the Program
-
-Run:
+**Phase 1**
 
 ```bash
-gcc -std=c11 -Wall -Wextra -O2 main.c -o mos.exe
+cd phase1
+gcc -std=c11 -Wall -Wextra main.c -o mos
+./mos
 ```
 
-If there are no errors, `mos.exe` will be created.
+The program reads `input.txt` and writes results to `output.txt`.
 
-### Step 4 – Run the Program
-
-Run:
+**Phase 2**
 
 ```bash
-.\mos.exe input_Phase1.txt output.txt
+cd phase2
+gcc -std=c11 -Wall -Wextra main.c -o mos
+./mos input_Phase2.txt output_Phase2.txt
 ```
 
-The program will read the jobs from `input_Phase1.txt` and write the results to `output.txt`.
-
-### Step 5 – View Output
-
-To display the output in the terminal:
+Optional verbose page-table output:
 
 ```bash
-type output.txt
+./mos input_Phase2.txt output_Phase2.txt -v
 ```
 
-Or open `output.txt` directly in VS Code.
+On Windows, run the generated executable as `mos.exe`.
 
-## ▶️ Quick Run Using `run.bat`
+## Concepts
 
-If `run.bat` is included, simply double-click it.
+Operating system simulation, CPU instruction cycle, memory management, paging, address translation, process control, interrupts, and file-based input/output.
 
-Or run:
+## Author
 
-```bash
-.\run.bat
-```
-
-It will compile and execute the program.
-
-## 📝 Input Format
-
-The input file contains jobs using control cards:
-
-```text
-$AMJ...
-Program Instructions
-$DTA
-Input Data
-$END...
-```
-
-Example:
-
-```text
-$AMJ020100120003
-GD20LR20GD30PD30H
-$DTA
-HELLO WORLD
-$END0201
-```
-
-## 🔄 Program Flow
-
-```text
-Input File
-     ↓
-   Loader
-     ↓
-   Memory
-     ↓
- CPU Fetch
-     ↓
- Decode & Execute
-     ↓
- GD / PD / H
-     ↓
-Supervisor Interrupt
-     ↓
- MOS Services
-     ↓
-Output File
-     ↓
- Next Job
-```
-
-## 🧠 Instruction Summary
-
-| Instruction | Operation                           |
-| ----------- | ----------------------------------- |
-| `LR`        | Load memory content into register R |
-| `SR`        | Store register R into memory        |
-| `CR`        | Compare R with memory               |
-| `BT`        | Branch if comparison is true        |
-| `GD`        | Read data from input                |
-| `PD`        | Write data to output                |
-| `H`         | Halt/terminate the job              |
-
-## 📚 Concepts Demonstrated
-
-* Operating System fundamentals
-* CPU simulation
-* Memory management
-* Instruction execution
-* Registers
-* Supervisor calls
-* Interrupt handling
-* Job loading
-* Input/Output operations
-* Multiprogramming OS concepts
-
-## 🎓 Project Purpose
-
-This project is developed for educational purposes to understand the internal working of a basic **Multiprogramming Operating System** through simulation.
-
-It demonstrates how a CPU executes instructions and how supervisor calls allow user programs to communicate with operating system services.
-
-## 👨‍💻 Technologies Used
-
-* **Language:** C
-* **Compiler:** GCC
-* **Environment:** Windows / VS Code
-* **Version Control:** Git & GitHub
-
-## 📌 Author
-
-**Pranil Mahale**
-
----
-
-⭐ If you find this project useful, consider giving the repository a star!
+[Gopal Rajane](https://github.com/gopalrajane) · [LinkedIn](https://www.linkedin.com/in/gopal-rajane/)
